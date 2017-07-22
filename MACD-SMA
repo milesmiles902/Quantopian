@@ -1,0 +1,37 @@
+from quantopian.pipeline.factors import SimpleMovingAverage
+
+def initialize(context):  
+   context.spy = sid(8554)
+   context.stockA = sid(1751)
+   context.stockB = sid(24)
+
+   total_minutes_trading = 6*60 + 5
+    
+   for i in range(1, total_minutes_trading):  
+       if i % 5 == 0:  
+           schedule_function(five_minute_fun,  
+                             date_rules.every_day(),  
+                             time_rules.market_open(minutes=i),
+                             True  
+                             ) 
+def five_minute_fun(context, data):  
+    f_days = 12
+    s_days = 26
+    price_spy = data.history(context.spy, fields="price", bar_count=20, frequency="1d")
+    f_avg = price_spy.mavg(f_days)
+    s_avg = price_spy.mavg(s_days)
+    macd = f_avg - s_avg 
+    qavg = [macd,9] 
+    
+    if (qavg > 0) and (f_avg > s_avg):
+        order_target_percent(context.stockA, 0.70)
+        order_target_percent(context.stockB, 0.30)
+    if (qavg > 0) and (f_avg < s_avg):
+        order_target_percent(context.stockA, 0.50)
+        order_target_percent(context.stockB, 0.50)
+   if (qavg < 0) and (f_avg > s_avg):
+        order_target_percent(context.stockA, 0.40)
+        order_target_percent(context.stockB, 0.60)
+   if (qavg < 0) and (f_avg < s_avg):
+        order_target_percent(context.stockA, 0.30)
+        order_target_percent(context.stockB, 0.70)
