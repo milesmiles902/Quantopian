@@ -14,6 +14,7 @@ def initialize(context):
                              time_rules.market_open(minutes=i),
                              True  
                              ) 
+                             
 def five_minute_fun(context, data):  
     f_days = 12
     s_days = 26
