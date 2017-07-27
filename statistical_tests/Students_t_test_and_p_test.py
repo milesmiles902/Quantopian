@@ -1,6 +1,6 @@
 #Student's t-test on a sample
-#P-tes
-#Null hypothesis: That the mean return is significantly greater than zero.
+#P-test
+#Alternative hypothesis: That the mean return is significantly greater than zero.
 
 import matplotlib.pyplot as plt
 import numpy as np

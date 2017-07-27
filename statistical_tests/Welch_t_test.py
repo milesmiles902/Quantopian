@@ -1,5 +1,5 @@
 #Welch's t-test on two samples with unequal variances i.e. two stocks
-#Null hypothesis: That the difference of means is significantly greater than zero.
+#Alternative hypothesis: That the difference of means is significantly greater than zero.
 
 import matplotlib.pyplot as plt
 
